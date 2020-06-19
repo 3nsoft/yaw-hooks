@@ -1,0 +1,75 @@
+# Test webhooks configuration file.
+# See AppConf in src/webhook-app/confs.ts for all configuration options
+
+port: 8080
+# address: localhost
+
+tls:
+  key: tests/tls/key.pem
+  cert: tests/tls/cert.pem
+
+scriptsRoot: tests/js-hooks
+runRoot: tests/shell-hooks
+
+hooks:
+
+  - request:
+      url: list
+      type: GET
+      accessToken:
+        # test secret: Zr2-h_d6CpJcJF0Yh0aZvHFExcpagOngv1o1PFWUGTc=
+        type: sha256
+        value: jCCMMccXh4kJue2lV9GTE8_wE56RRRxvt_3IHUZdrPg=
+    run:
+      command: ls
+      staticArgs: -l
+
+  - request:
+      url: list-that
+      type: POST
+      body: text
+      accessToken:
+        # test secret blsjHWbZbWKnnd5dfwweNgZR52k1g1v72OAyAcqe-WY=
+        type: sha256
+        value: hiBnKa3ZHhymO2P-LSWu6wF507-JlzEhvCwl71D7Zww=
+    run:
+      command: ls
+
+  - request:
+      url: echo
+      type: POST
+      body: binary
+      accessToken:
+        # test secret 3IIIdbzA9B_k2h6b0cbjKYdkJifb8x_H3E6VQdWs-A8=
+        type: sha256
+        value: 4Bcm8AOX-WpeACm78SAxNnEHZbSKO-2IYcOlFaKLpU0=
+    script:
+      file: echo.js
+      func: echo
+
+  - request:
+      url: test-shell
+      type: GET
+      accessToken:
+        # test secret: KoGbPlV4PYKfAUa-qzHX2h98S3GvGybm-WmPzZBGyrA=
+        type: sha256
+        value: IcvdL8HtbQRscjkIokCCbx6vU3XmT_NdnDEkuqcc0y0=
+    run:
+      # note that source runs script file without exec mode in this setting
+      shell: /bin/bash
+      command: source test.sh
+      env:
+        ENV_VAR: String in static environment variable
+
+  - request:
+      url: echo2
+      type: POST
+      body: stream
+      accessToken:
+        # test secret xgbGrORwbC68AzVeqIC5gQRZyHm2q0BWeNh2Nz40fFI=
+        type: sha256
+        value: AVYSqDolCD4f6RkuRI0QIRleowxXUuytOo7UTc4dRD4=
+    run:
+      shell: /bin/bash
+      command: source echo-stdin.sh
+      bodyStdin: true

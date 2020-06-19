@@ -1,0 +1,8 @@
+#!/bin/sh
+
+inst_folder=/usr/share/webhooks
+
+node_bin="$inst_folder/node/bin/node"
+token_gen="$inst_folder/webhook-app/build/gen-access-token.js"
+
+"$node_bin" "$token_gen"

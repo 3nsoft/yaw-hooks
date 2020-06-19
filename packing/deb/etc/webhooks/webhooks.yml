@@ -1,0 +1,12 @@
+
+port: 8080
+# address: localhost
+
+tls:
+  key: /etc/webhooks/tls/key.pem
+  cert: /etc/webhooks/tls/cert.pem
+
+scriptsRoot: /opt/webhooks/js-hooks
+runRoot: /opt/webhooks/run-hooks
+
+hooks: []

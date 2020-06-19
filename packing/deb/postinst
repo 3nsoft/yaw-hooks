@@ -1,0 +1,39 @@
+#!/bin/bash
+
+js_hooks_dir=/opt/webhooks/js-hooks
+cmd_hooks_dir=/opt/webhooks/run-hooks
+tls_dir=/etc/webhooks/tls
+
+for dir in $js_hooks_dir $cmd_hooks_dir $tls_dir
+do
+   if [ ! -d $dir ]
+   then
+      mkdir -p $dir
+   fi
+done
+
+systemctl daemon-reload
+
+echo "
+   #######################
+   #   Webhooks server   #
+   #######################
+
+1. Configurations of Webhooks service are located in yml file /etc/webhooks/webhooks.yml
+Note that configuration explicitly defines location for hook scripts.
+
+2. Start systemd service \"sudo systemctl start webhooks\"
+Note that service is not enabled by default.
+
+3. Use webhooks-generate-access-token to make hook access tokens.
+Token hash goes to configuration file, not the secret.
+
+"
+
+if [ -z "$(ls $tls_dir)" ]
+then
+   echo "4. Setting up self-signed TLS certificate with command
+$ webhooks-generate-tls-key $tls_dir"
+   /usr/bin/webhooks-generate-tls-key $tls_dir
+   echo
+fi

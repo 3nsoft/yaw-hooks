@@ -1,0 +1,8 @@
+#!/bin/sh
+
+inst_folder=/usr/share/webhooks
+
+node_bin="$inst_folder/node/bin/node"
+app_run="$inst_folder/webhook-app/build/run.js"
+
+"$node_bin" "$app_run" $@

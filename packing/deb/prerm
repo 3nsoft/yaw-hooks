@@ -1,0 +1,7 @@
+#!/bin/bash
+
+systemctl stop webhooks
+
+systemctl disable webhooks
+
+exit 0
