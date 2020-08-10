@@ -60,11 +60,11 @@ Webhook definition object must have `request` field with connection and authenti
 ```yaml
   - request:
       # path part for http request url
-		url: path/in/http/url
-		# http method for request
-		type: GET
-		# access token contains type and value of creds that server side
-		# uses to allow access to this particular request.
+      url: path/in/http/url
+      # http method for request
+      type: GET
+      # access token contains type and value of creds that server side
+      # uses to allow access to this particular request.
       accessToken:
         type: sha256
         value: jCCMMccXh4kJue2lV9GTE8_wE56RRRxvt_3IHUZdrPg=
